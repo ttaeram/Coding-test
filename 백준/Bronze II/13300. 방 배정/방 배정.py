@@ -12,16 +12,18 @@ for i in range(N):
 room = 0
 for i in range(6):
     if g_cnt[i] != 0:
-        if g_cnt[i] > k:
-            room += g_cnt[i]//k + 1
+        if g_cnt[i] % k == 0:
+            room += g_cnt[i]//k
         else:
-            room += 1
-
+            room += g_cnt[i]//k + 1
+    else:
+        continue
 for i in range(6):
     if b_cnt[i] != 0:
-        if b_cnt[i] > k:
-            room += b_cnt[i]//k + 1
+        if b_cnt[i] % k == 0:
+            room += b_cnt[i] // k
         else:
-            room += 1
-
+            room += b_cnt[i] // k + 1
+    else:
+        continue
 print(room)
