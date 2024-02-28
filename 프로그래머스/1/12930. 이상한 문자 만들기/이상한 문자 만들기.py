@@ -8,7 +8,6 @@ def solution(s):
             else:
                 arr[i][j] = arr[i][j].lower()
         arr[i] = ''.join(arr[i])
+        
     answer = ' '.join(arr)
-    # if answer[-1] == ' ':
-    #     answer = answer[:-1]
     return answer
