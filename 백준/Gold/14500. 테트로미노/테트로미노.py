@@ -1,33 +1,49 @@
 import sys
 input = sys.stdin.readline
 
-dr = [1, 0, -1, 0]
-dc = [0, 1, 0, -1]
+N, M = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(N)]
 
-def dfs(cur, cnt, temp):
-    global ans
-    if temp + max_v*(4-cnt) <= ans:
-        return
-    if cnt == 4:
-        ans = max(ans, temp)
-        return
-    for cR, cC in cur:
-        for k in range(4):
-            nR, nC = cR+dr[k], cC+dc[k]
-            if 0 <= nR < nr and 0 <= nC < nc and not v[nR][nC]:
-                v[nR][nC] = 1
-                dfs(cur+[(nR, nC)], cnt+1, temp+arr[nR][nC])
-                v[nR][nC] = 0
-
-nr, nc = map(int, input().rstrip().split())
-arr = [list(map(int, input().rstrip().split())) for _ in range(nr)]
-
-v = [[0] * nc for _ in range(nr)]
 ans = 0
-max_v = max(map(max, arr))
-for r in range(nr):
-    for c in range(nc):
-        v[r][c] = 1
-        dfs([(r, c)], 1, arr[r][c])
-        # v[r][c] = 0   # (r, c)를 포함하는 모든 모양 검사 완료해서 v[r][c]를 0으로 되돌릴 필요 X
+for x in range(N):
+    for y in range(M):
+        a, b, c = y + 1, y + 2, y + 3
+        if 0 <= c < M:
+            ans = max(ans, arr[x][y] + arr[x][a] + arr[x][b] + arr[x][c])
+        a, b, c = x + 1, x + 2, x + 3
+        if 0 <= c < N:
+            ans = max(ans, arr[x][y] + arr[a][y] + arr[b][y] + arr[c][y])
+        a, b = x + 1, y + 1
+        if 0 <= a < N and 0 <= b < M:
+            ans = max(ans, arr[x][y] + arr[x][b] + arr[a][y] + arr[a][b])
+        a, b, c = x + 1, y + 1, y + 2
+        if 0 <= a < N and 0 <= c < M:
+            ans = max(ans, arr[x][y] + arr[x][b] + arr[x][c] + arr[a][c])
+            ans = max(ans, arr[x][y] + arr[x][b] + arr[x][c] + arr[a][y])
+            ans = max(ans, arr[x][c] + arr[a][y] + arr[a][b] + arr[a][c])
+            ans = max(ans, arr[x][y] + arr[a][y] + arr[a][b] + arr[a][c])
+        a, b, c = x + 1, x + 2, y + 1
+        if 0 <= b < N and 0 <= c < M:
+            ans = max(ans, arr[x][y] + arr[x][c] + arr[a][y] + arr[b][y])
+            ans = max(ans, arr[x][y] + arr[b][c] + arr[a][y] + arr[b][y])
+        c = y - 1
+        if 0 <= b < N and 0 <= c < M:
+            ans = max(ans, arr[x][y] + arr[x][c] + arr[a][y] + arr[b][y])
+            ans = max(ans, arr[x][y] + arr[b][c] + arr[a][y] + arr[b][y])
+        a, b, c = y + 1, x + 1, x + 2
+        if 0 <= a < M and 0 <= c < N:
+            ans = max(ans, arr[x][y] + arr[b][y] + arr[b][a] + arr[c][a])
+            ans = max(ans, arr[x][a] + arr[b][y] + arr[b][a] + arr[c][y])
+        a, b, c = x + 1, y + 1, y + 2
+        if 0 <= a < N and 0 <= c < M:
+            ans = max(ans, arr[x][b] + arr[x][c] + arr[a][y] + arr[a][b])
+            ans = max(ans, arr[x][y] + arr[x][b] + arr[a][b] + arr[a][c])
+        a, b, c = x + 1, y + 1, y + 2
+        if 0 <= a < N and 0 <= c < M:
+            ans = max(ans, arr[x][b] + arr[a][y] + arr[a][b] + arr[a][c])
+            ans = max(ans, arr[x][y] + arr[x][b] + arr[x][c] + arr[a][b])
+        a, b, c = x + 1, x + 2, y + 1
+        if 0 <= b < N and 0 <= c < M:
+            ans = max(ans, arr[x][y] + arr[a][y] + arr[b][y] + arr[a][c])
+            ans = max(ans, arr[x][c] + arr[a][y] + arr[a][c] + arr[b][c])
 print(ans)
