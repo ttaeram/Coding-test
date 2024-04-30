@@ -11,7 +11,8 @@ def sol():
         
     arr.sort(key=lambda x: x[0])
     stack = []
-    for a, b in arr:
+    for idx in range(N):
+        a, b = arr[idx]
         if not stack:
             ans += 1
             stack.append(b)
