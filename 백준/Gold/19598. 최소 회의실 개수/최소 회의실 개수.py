@@ -14,16 +14,16 @@ def sol():
     for a, b in arr:
         if not stack:
             ans += 1
-            stack.append((a, b))
+            stack.append(b)
         else:
             flag = True
             for i in range(len(stack)):
-                if stack[i][1] <= a:
-                    stack[i] = (a, b)
+                if stack[i] <= a:
+                    stack[i] = b
                     flag = False
                     break
             if flag:
                 ans += 1
-                stack.append((a, b))
+                stack.append(b)
     print(ans)
 sol()
