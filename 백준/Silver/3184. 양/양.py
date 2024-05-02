@@ -1,13 +1,12 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
 
 def bfs(r, c):
     cnt_v = 0
     cnt_o = 0
-    stack = deque([(r, c)])
+    stack = [(r, c)]
     while stack:
-        x, y = stack.popleft()
+        x, y = stack.pop()
         if (x, y) not in check:
             check.add((x, y))
             if arr[x][y] == 'v':
