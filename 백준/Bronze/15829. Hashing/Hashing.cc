@@ -13,14 +13,15 @@ int main(void)
   string str{};
   cin>>str;
 
-  int r{31};
-  int M{1234567891};
-  int ans{0};
+  long long r{1};
+  long long M{1234567891};
+  long long ans{0};
 
   for(int i=0; i<L; i++)
     {
-      int res{str[i] - 96};
-      ans+=res*(pow(r, i));
+      int res{long(str[i]) - 96};
+      ans+=(res*r)%M;
+      r=(r*31)%M;
     }
-  cout<<ans;
+  cout<<ans%M;
 }
