@@ -32,7 +32,7 @@ while True:
     if arr[x][y] == 1:
         arr[x][y] = 2
         snake.append((x, y))
-        if t in commands.keys():
+        if t in commands:
             if commands[t] == 'L':
                 d = (d - 1) % 4
             else:
@@ -42,7 +42,7 @@ while True:
         snake.append((x, y))
         px, py = snake.popleft()
         arr[px][py] = 0
-        if t in commands.keys():
+        if t in commands:
             if commands[t] == 'L':
                 d = (d - 1) % 4
             else:
