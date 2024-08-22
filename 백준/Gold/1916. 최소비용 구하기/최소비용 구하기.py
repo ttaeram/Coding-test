@@ -1,18 +1,17 @@
+import heapq
 import sys
-import heapq 
-
 input = sys.stdin.readline
 
-n = int(input())
-m = int(input())
-graph = [[] for _ in range(n+1)]
+N = int(input())
+M = int(input())
 
-for _ in range(m):
-    a, b, cost = map(int, input().split())
-    graph[a].append([b, cost])
-        
+bus = [[] for _ in range(N + 1)]
+for _ in range(M):
+    s, e, c = map(int, input().split())
+    bus[s].append((e, c))
+
 start, end = map(int, input().split())
-costs = [1e9 for _ in range(n+1)]
+costs = [int(1e9) for _ in range(N+1)]
 heap = []
 costs[start] = 0
 heapq.heappush(heap, [0, start])
@@ -21,7 +20,7 @@ while heap:
     cur_cost, cur_v = heapq.heappop(heap)
     if costs[cur_v] < cur_cost:
         continue
-    for next_v, next_cost in graph[cur_v]:
+    for next_v, next_cost in bus[cur_v]:
         sum_cost = cur_cost + next_cost
         if sum_cost >= costs[next_v]:
             continue
