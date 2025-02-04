@@ -2,25 +2,24 @@ import sys
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
-arr = list(map(int, input().split()))
+nums = list(map(int, input().split()))
 
-def sol():
-    ans = 0
+left, right = 0, 1
+cnt = 0
+while right<=N and left<=right:
 
-    for i in range(N):
-        res = 0
+    sum_nums = nums[left:right]
+    total = sum(sum_nums)
 
-        for j in range(i, N):
-            res += arr[j]
+    if total == M:
+        cnt += 1
 
-            if res == M:
-                ans += 1
-                break
+        right += 1
 
-            if res > M:
-                break
-    
-    return ans
+    elif total < M:
+        right += 1
 
-ans = sol()
-print(ans)
+    else:
+        left += 1
+
+print(cnt)
